@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var config = require ('../config/config');
+var config = require('../config/config');
 var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var mysql = require('mysql');
@@ -12,31 +12,28 @@ var connection = mysql.createConnection(config.db);
 
 
 /* GET home page. */
-router.get('/',(req, res, next)=>{
-			
-		  res.render('index', { 
-		  	title: 'Express' ,
-		  });
-	
+router.get('/', (req, res, next) => {
+
+    res.render('index', {
+        title: 'Express',
+    });
+
 });
 
-router.get('/home',(req,res,next)=>{
-	res.render('home',{})
+router.get('/home', (req, res, next) => {
+    res.render('home', {})
 });
 
-router.post('/routesProcess',(req,res,next)=>{
-	var currentLocation = req.body.currentLocation
-	var distance = req.body.distance	
-	console.log('**********************************')
-	console.log(currentLocation)
-	console.log("hey chris")	
-	var insertQuery = 'INSERT INTO routes (currentLocation,distance) VALUES (?,?);';
-	connection.query(insertQuery,[currentLocation,distance],(error)=>{		
-	if(error){
-		throw error
-	}
-	res.redirect('/home?msg=itworked')
-	});
+router.post('/routesProcess', (req, res, next) => {
+    var currentLocation = req.body.currentLocation
+    console.log("hey chris")
+    var insertQuery = 'INSERT INTO routes (currentLocation) VALUES (?);';
+    connection.query(insertQuery, [currentLocation])
+    if (error) {
+        throw error
+    } else {
+        res.redirect('/home?msg=done')
+    }
 });
 
 /* HISTORY */
@@ -53,7 +50,5 @@ router.get('/history', (req, res, next) => {
         }
     })
 })
-
-
 
 module.exports = router;
