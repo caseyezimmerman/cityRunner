@@ -6,7 +6,7 @@ var request = require('request');
 var mysql = require('mysql');
 
 var connection = mysql.createConnection(config.db);
-console.log(connection)
+
 
 
 
@@ -18,6 +18,22 @@ router.get('/',(req, res, next)=>{
 		  	title: 'Express' ,
 		  });
 	
+});
+
+router.get('/home',(req,res,next)=>{
+	res.render('home',{})
+});
+
+router.post('/routesProcess',(req,res,next)=>{
+	var currentLocation = req.body.currentLocation
+	console.log("hey chris")	
+	var insertQuery = 'INSERT INTO routes (currentLocation) VALUES (?);';
+	connection.query(insertQuery,[currentLocation])	
+	if(error){
+		throw error
+	}else{
+		res.redirect('/home?msg=done')
+	}
 });
 
 
