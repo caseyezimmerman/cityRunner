@@ -27,9 +27,10 @@ var markerArray = [];
 var lat_lng; // used for extra
 var latArray = [];
 var lngArray = [];
+
 $(document).ready(function() {
     $('.run-form').submit(function(event) {
-        event.preventDefault();
+        // event.preventDefault();
         reset()
         $("#instructions").show()
         userLocation = document.getElementById("location").value;
@@ -155,6 +156,7 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
             }
         }
     ]
+
     directionsService.route({
         origin: origin,
         destination: origin,
@@ -172,6 +174,7 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
         } else {
             window.alert("Request failed due to" + status)
         }
+       
     })
 }
 
