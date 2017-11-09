@@ -26,14 +26,16 @@ router.get('/home', (req, res, next) => {
 
 router.post('/routesProcess', (req, res, next) => {
     var currentLocation = req.body.currentLocation
+    var distance = req.body.distance
     console.log("hey chris")
-    var insertQuery = 'INSERT INTO routes (currentLocation) VALUES (?);';
-    connection.query(insertQuery, [currentLocation])
+    var insertQuery = 'INSERT INTO routes (currentLocation,distance) VALUES (?,?);';
+    connection.query(insertQuery, [currentLocation,distance],(error)=>{
     if (error) {
         throw error
     } else {
         res.redirect('/home?msg=done')
     }
+	});
 });
 
 /* HISTORY */
