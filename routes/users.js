@@ -21,6 +21,7 @@ router.get('/register',(req,res,next)=>{
 
 router.post('/registerProcess',(req,res,next)=>{
 	var name = req.body.name
+	var username = req.body.username
 	var email = req.body.email
 	var password = req.body.password
 	var selectQuery = 'SELECT * FROM users WHERE email = ?;';
@@ -30,8 +31,8 @@ router.post('/registerProcess',(req,res,next)=>{
 			res.redirect('/register')
 		}else{
 			var hash = bcrypt.hashSync(password)
-			var insertQuery = 'INSERT INTO users (name,email,password) VALUES (?,?,?);';
-			connection.query(insertQuery,[name,email,hash],(error)=>{
+			var insertQuery = 'INSERT INTO users (name,username,email,password) VALUES (?,?,?,?);';
+			connection.query(insertQuery,[name,username,email,hash],(error)=>{
 				if(error){
 					throw error
 				}
@@ -51,10 +52,10 @@ router.get('/login',(req,res,next)=>{
 
 
 router.post('/loginProcess',(req,res,next)=>{
-	var email = req.body.email
+	var username = req.body.username
 	var password = req.body.password
-	var selectQuery = 'SELECT * FROM users WHERE email = ?;';
-	connection.query(selectQuery,[email],(error,results)=>{
+	var selectQuery = 'SELECT * FROM users WHERE username = ?;';
+	connection.query(selectQuery,[username],(error,results)=>{
 		if(error){
 			throw error
 		} else {
