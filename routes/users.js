@@ -62,7 +62,7 @@ router.post('/loginProcess',(req,res,next)=>{
 				var passwordMatch = bcrypt.compareSync(password,results[0].password)
 				if(passwordMatch){
 					// Add session?
-					res.redirect('/?msg=loggedIn')
+					res.redirect('/home?msg=loggedIn')
 				} else {
 					res.redirect('/users/login?msg=passwordIncorrect');
 				}
