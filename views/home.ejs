@@ -2,77 +2,49 @@
 <html>
     <head>
         <% include head %>
-        <script type="text/javascript" src="/javascripts/scripts.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
         <title>City Runner</title>
     </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid col-sm-12">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/users/register">Register</a></li>
-                    <li><a href="/users/login">Login</a></li>
-                    <li><a href="/users/login">Profile</a></li>
-                    <li><a href="/users/login">History</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+    <% include navbar %>
     <div class="parallax">
         <div id="title">City Runner</div>
     </div>
     <div class="container">
         <div class="row">
-            
-                <div class="col-md-9 col-md-offset-2">
-                    <div class="col-xs-12 col-sm-12 col-md-3">
-                        <form class="run-form" action="/routesProcess" method="post">
-                            <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
-                                <div class="info">Tell us your current location</div>
-                                <input name="currentLocation" id="location" type="text" placeholder="Current Location" />
-                            </div>
-                            <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
-                                <div class="info">How many miles do you want to run?</div>
-                                    <select name="distance" id="miles">
-                                        <option value="1-3 miles">1-3 miles</option>
-                                        <option value="3-5 miles">3-5 miles</option>
-                                        <option value="5-7 miles">5-7 miles</option>
-                                        <option value="7-10 miles">7-10 miles</option>
-                                    </select>
-                            </div>
-                            <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
-                                <div class="info">Get routes and go for a run!</div>
-                                <button id="submit" class="btn btn-default" type="submit" placeholder="Run!">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm-9" id="wrapper">
-                        <div id="map"></div>
-                        <div class="col-xs-4 col-sm-4 col-md-3" id="instructions"> </div>
-                       
-                        <div id="map2"></div>
-                        <div class="col-xs-4 col-sm-4 col-md-3" id="instructions2"> </div>
-                        <div id="map3"></div>
-                        <div class="col-xs-4 col-sm-4 col-md-3" id="instructions3"> </div>
-                        <div id="map4"></div>
-                        <div class="col-xs-4 col-sm-4 col-md-3" id="instructions4"> </div>
-
-                    </div>
+            <div class="col-md-9 col-md-offset-2">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <form class="run-form" action="/routesProcess" method="post">
+                        <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
+                            <div class="info">Tell us your current location</div>
+                            <input name="currentLocation" id="location" type="text" placeholder="Current Location" />
+                        </div>
+                        <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
+                            <div class="info">How many miles do you want to run?</div>
+                                <select name="distance" id="miles">
+                                    <option value="1-3 miles">1-3 miles</option>
+                                    <option value="3-5 miles">3-5 miles</option>
+                                    <option value="5-7 miles">5-7 miles</option>
+                                    <option value="7-10 miles">7-10 miles</option>
+                                </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-12 box">
+                            <div class="info">Get routes and go for a run!</div>
+                            <button id="submit" class="btn btn-default" type="submit" placeholder="Run!">Submit</button>
+                        </div>
+                    </form>
                 </div>
-            
+                <div class="col-sm-9" id="wrapper">
+                    <div id="map"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-3" id="instructions"> </div>
+                    <div id="map2"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-3" id="instructions2"> </div>
+                    <div id="map3"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-3" id="instructions3"> </div>
+                    <div id="map4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-3" id="instructions4"> </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
