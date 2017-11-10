@@ -4,6 +4,8 @@ var config = require('../config/config');
 var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var mysql = require('mysql');
+var socketio = require('socket.io');
+var app = require('../app');
 
 var connection = mysql.createConnection(config.db);
 
@@ -33,7 +35,11 @@ router.post('/routesProcess', (req, res, next) => {
     if (error) {
         throw error
     } else {
-        res.redirect('/home?msg=done')
+    	console.log(distance)
+    	res.render('map',{
+    		address:currentLocation,
+    		distance:distance
+		})
     }
 	});
 });
@@ -52,5 +58,30 @@ router.get('/history', (req, res, next) => {
         }
     })
 })
+
+router.get('/map',(req,res,error)=>{
+	// res.render('map',{
+	// 	coords: {
+	// 		originLat:userLocationLatLng.lat,
+	// 		originLng:userLocationLatLng.lng
+	// 	},
+	// 	waypoints:{
+	// 		lat1:latArray[0],
+	// 		lng1:lngArray[0],
+	// 		lat2:latArray[1],
+	// 		lng2:lngArray[1],
+	// 		lat3:latArray[2],
+	// 		lng3:lngArray[2],
+	// 		lat4:latArray[3],
+	// 		lng4:lngArray[3],
+	// 		lat5:latArray[4],
+	// 		lng5:lngArray[4],
+	// 		lat6:latArray[5],
+	// 		lng6:lngArray[5]
+	// 	}
+	// })
+})
+
+
 
 module.exports = router;

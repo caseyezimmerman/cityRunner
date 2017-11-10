@@ -161,7 +161,22 @@ var lngArray3 = []
 ///////////////////////////////////////////////////////
 ////////////CODE THAT ACTUALLY RUNS ON LOAD////////////
 ///////////////////////////////////////////////////////
-var ajaxRequest = $.ajax({
+
+
+// var ajaxRequest = $.ajax({
+// 		type: 'GET',
+// 		url: mapURL,
+// 		url2: roadURL,
+// 		// url3: geoURL,
+// 		dataType: 'jsonp',
+// 		jsonpCallback: 'initMap',
+// 		async: false, // this is by default false, so not need to mention
+// 		crossDomain: true, // tell the browser to allow cross domain calls.
+		
+// })
+
+
+	var ajaxRequest = $.ajax({
 		type: 'GET',
 		url: mapURL,
 		url2: roadURL,
@@ -170,21 +185,107 @@ var ajaxRequest = $.ajax({
 		jsonpCallback: 'initMap',
 		async: false, // this is by default false, so not need to mention
 		crossDomain: true // tell the browser to allow cross domain calls.
-})
+		
+	});
+	
+
+
+
 
 
 $(document).ready(function(){
-	$('.run-form').submit(function(event){
-		event.preventDefault();
-		$("#instructions").show()
+	// $('.run-form').submit(function(event){
+		// $('#hidden').hide()
+		// $('#wrapper').show()
+	// 	$("#instructions").show()
+	// 	$(".milesBox").show()
+	// 	// reset all maps so the directions dont hold over the last search
+	// 	// reset();
+	// 	// get the new address from teh form
+	// 	// var address = document.getElementById("location").value;
+	// 	console.log(address)
+
+
+	// 	// var x = document.getElementById("miles").selectedIndex;
+	// 	// var distance = document.getElementsByClassName("distance")[document.getElementById("miles").selectedIndex].innerHTML;
+	// 	var distance = distance
+	// 	console.log(distance)
+	// 	if(distance == "1-3 miles"){
+	// 		range = .011
+	// 	}else if(distance == "3-5 miles"){
+	// 		range = .013
+	// 	}else if(distance == "5-7 miles"){
+	// 		range = .015
+	// 	}else if(distance == "7-10 miles"){
+	// 		range = .017
+	// 	}
+
+	// 	geocoder = new google.maps.Geocoder();
+	// 	geocoder.geocode({'address': address}, function(results,status){
+	// 		if(status === 'OK'){
+	// 			address = {
+	// 				lat: results[0].geometry.location.lat(),
+	// 				lng: results[0].geometry.location.lng()
+	// 			}
+
+
+	// 			initMap2(address)
+	// 			// sendToServer()
+
+	// 			runningMaps.map((currMap)=>{
+	// 				currMap.findCoordinates(address.lat, address.lng, range);
+	// 				currMap.calculateAndDislayRoute(directionsService, stepDisplay);
+	// 			})
+
+				
+			
+	// 			// calculateAndDislayRoute(
+	// 			// directionsDisplay2, directionsService, markerArray2, stepDisplay, map2, userLocation);
+			
+	// 			// calculateAndDislayRoute(
+	// 			// directionsDisplay3, directionsService, markerArray3, stepDisplay, map3, userLocation);
+	// 		}else{
+	// 			// alert("not valid")
+	// 		}
+	// 		// console.log(x);
+			
+
+	// 	})
+	// 		console.log(address.lat)
+	// 		console.log(address.lng)
+	// 		console.log('im  not waitig for geocode.')
+	// });
+// });  
+
+initMap = function (coordLocation = "") {
+	if(runningMaps.length === 0){
+		runningMaps.push(new CircleMap('map', 14, 90, 'instructions'));
+		runningMaps.push(new CircleMap('map2', 14, 45, 'instructions2'));
+		runningMaps.push(new CircleMap('map3', 14, 120, 'instructions3'));
+		runningMaps.push(new CircleMap('map4', 14, 25, 'instructions4'));
+	}
+
+	directionsService = new google.maps.DirectionsService;
+	stepDisplay = new google.maps.InfoWindow;
+
+	runningMaps.map((currMap)=>{
+		currMap.initialize(coordLocation);
+		currMap.directionsDisplay.setPanel(document.getElementById(currMap.idForInstuctions));
+	})
+
+	$("#instructions").show()
 		$(".milesBox").show()
 		// reset all maps so the directions dont hold over the last search
-		reset();
+		// reset();
 		// get the new address from teh form
-		var address = document.getElementById("location").value;
+		// var address = document.getElementById("location").value;
+		// console.log(address)
 
-		var x = document.getElementById("miles").selectedIndex;
-		var distance = document.getElementsByTagName("option")[x].innerHTML;
+
+		// var x = document.getElementById("miles").selectedIndex;
+		// var distance = document.getElementsByClassName("distance")[document.getElementById("miles").selectedIndex].innerHTML;
+		// var distance = distance
+		console.log(distance)
 		if(distance == "1-3 miles"){
 			range = .011
 		}else if(distance == "3-5 miles"){
@@ -198,15 +299,17 @@ $(document).ready(function(){
 		geocoder = new google.maps.Geocoder();
 		geocoder.geocode({'address': address}, function(results,status){
 			if(status === 'OK'){
-				userLocationLatLng = {
+				address = {
 					lat: results[0].geometry.location.lat(),
 					lng: results[0].geometry.location.lng()
 				}
 
-				initMap2(userLocationLatLng)
+
+				initMap2(address)
+				// sendToServer()
 
 				runningMaps.map((currMap)=>{
-					currMap.findCoordinates(userLocationLatLng.lat, userLocationLatLng.lng, range);
+					currMap.findCoordinates(address.lat, address.lng, range);
 					currMap.calculateAndDislayRoute(directionsService, stepDisplay);
 				})
 
@@ -224,26 +327,11 @@ $(document).ready(function(){
 			
 
 		})
+			console.log(address.lat)
+			console.log(address.lng)
 			console.log('im  not waitig for geocode.')
-	});
-});  
-
-initMap = function (coordLocation = "") {
-	if(runningMaps.length === 0){
-		runningMaps.push(new CircleMap('map', 14, 90, 'instructions'));
-		runningMaps.push(new CircleMap('map2', 14, 45, 'instructions2'));
-		runningMaps.push(new CircleMap('map3', 14, 120, 'instructions3'));
-		runningMaps.push(new CircleMap('map4', 14, 25, 'instructions4'));
-	}
-
-	directionsService = new google.maps.DirectionsService;
-	stepDisplay = new google.maps.InfoWindow;
-
-	runningMaps.map((currMap)=>{
-		currMap.initialize(coordLocation);
-		currMap.directionsDisplay.setPanel(document.getElementById(currMap.idForInstuctions));
-	})
-}
+	};
+});
 
 initMap2 = function (coordLocation = "") {
 	if(runningMaps.length === 0){
@@ -260,7 +348,7 @@ initMap2 = function (coordLocation = "") {
 		currMap.initialize(coordLocation);
 		currMap.directionsDisplay.setPanel(document.getElementById(currMap.idForInstuctions));
 	})
-
+	
 }
 
 function reset(){
