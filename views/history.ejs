@@ -4,24 +4,39 @@
         <% include head %>
         <link rel="stylesheet" type="text/css" href="stylesheets/history.css">
         <title>History</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+         <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });        
+    </script>
+
     </head>
     <body>
         <% include navbar%>
-        <div class="container">
-            <div class="row">
+            <form action="/historyProcess" method="post">
                 <h1>History of Routes</h1>
-                <!-- loop through runData and render as a table-->
-                <% for (var i = 0; i < 1; i++){ %>
-                    <form action="/historyProcess" method="post">
-                        <div class="col-xs-9">
-                            <h3>Previous Run</h3>
-                        </div>
-                        <div class="col-xs-3">
-                            <button type="submit" class="btn btn-primary">Run Again</button>
-                        </div>
-                    </form>
-                <% } %>
-            </div>
-        </div>
+                <table id ="myTable">
+                    <thead>
+                        <th>Location</th>
+                        <th>Distance</th>
+                        <th></th>
+                    </thead>
+                        <tbody>
+                        <% results.map((row)=>{ %>
+                            <tr>
+                                <td><%= row.currentLocation%></td>
+                                <td><%= row.distance%></td>
+                                <td><button class="btn btn-muted">GO</button></td>
+                                
+                            </tr>
+                        <% }) %>
+
+                        </tbody>
+                    </table>
+                </form>
     </body>
 </html>
