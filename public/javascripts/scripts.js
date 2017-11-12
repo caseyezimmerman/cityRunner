@@ -95,7 +95,9 @@ CircleMap.prototype.calculateAndDislayRoute = function(directionsService, stepDi
 				lat: this.latArray[i],
 				lng: this.lngArray[i]
 			}
-		})
+		});
+
+
 	}
 
 	console.log(this.waypoints)
@@ -118,6 +120,7 @@ CircleMap.prototype.calculateAndDislayRoute = function(directionsService, stepDi
 			// this.directionsDisplay.setMap(this.name);
 			// console.log("yes")
 			this.directionsDisplay.setDirections(response);
+			$('.adp-placemark').hide()
 			// showSteps(response,markerArray, stepDisplay, map);
 		}else{
 			window.alert("Request failed due to" + status)
@@ -194,6 +197,7 @@ var lngArray3 = []
 
 
 $(document).ready(function(){
+
 	// $('.run-form').submit(function(event){
 		// $('#hidden').hide()
 		// $('#wrapper').show()
@@ -275,6 +279,7 @@ initMap = function (coordLocation = "") {
 
 	$("#instructions").show()
 		$(".milesBox").show()
+		// $('.adp-placemark').hide()
 		// reset all maps so the directions dont hold over the last search
 		// reset();
 		// get the new address from teh form
@@ -348,6 +353,7 @@ initMap2 = function (coordLocation = "") {
 		currMap.initialize(coordLocation);
 		currMap.directionsDisplay.setPanel(document.getElementById(currMap.idForInstuctions));
 	})
+
 	
 }
 

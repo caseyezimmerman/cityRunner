@@ -29,6 +29,7 @@ router.get('/home', (req, res, next) => {
 router.post('/routesProcess', (req, res, next) => {
     var currentLocation = req.body.currentLocation
     var distance = req.body.distance
+    var userid = 2
     console.log("hey chris")
     var insertQuery = 'INSERT INTO routes (currentLocation,distance,userid) VALUES (?,?,?);';
     connection.query(insertQuery, [currentLocation,distance,userid],(error)=>{
@@ -39,7 +40,7 @@ router.post('/routesProcess', (req, res, next) => {
     	res.render('map',{
     		address:currentLocation,
     		distance:distance
-		})
+		});
     }
 	});
 });
