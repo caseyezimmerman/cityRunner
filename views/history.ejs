@@ -9,18 +9,18 @@
         <% include navbar%>
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
-                    <h1>History of Routes</h1>
-                    <!-- loop through runData and render as a table-->
-                    <% for (var i = 0; i < runData.length; i++){ %>
-                        <div>
-                        <%= runData[i] %>
+                <h1>History of Routes</h1>
+                <!-- loop through runData and render as a table-->
+                <% for (var i = 0; i < 1; i++){ %>
+                    <form action="/historyProcess" method="post">
+                        <div class="col-xs-9">
+                            <h3>Previous Run</h3>
                         </div>
-                    <% } %>
-                </div>
-                <div class="col-sm-3">
-                <h1>Buttons</h1>
-                </div> 
+                        <div class="col-xs-3">
+                            <button type="submit" class="btn btn-primary">Run Again</button>
+                        </div>
+                    </form>
+                <% } %>
             </div>
         </div>
     </body>
