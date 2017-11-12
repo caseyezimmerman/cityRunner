@@ -30,8 +30,8 @@ router.post('/routesProcess', (req, res, next) => {
     var currentLocation = req.body.currentLocation
     var distance = req.body.distance
     console.log("hey chris")
-    var insertQuery = 'INSERT INTO routes (currentLocation,distance) VALUES (?,?);';
-    connection.query(insertQuery, [currentLocation,distance],(error)=>{
+    var insertQuery = 'INSERT INTO routes (currentLocation,distance,userid) VALUES (?,?,?);';
+    connection.query(insertQuery, [currentLocation,distance,userid],(error)=>{
     if (error) {
         throw error
     } else {
@@ -44,17 +44,30 @@ router.post('/routesProcess', (req, res, next) => {
 	});
 });
 
+router.post('/historyProcess',(req,res,next)=>{
+    var selectQuery = ' SELECT currentLocation,distance FROM routes WHERE userid = ?;';
+    connection.query(selectQuery,[userid],(error,results)=>{
+        if (error){
+            throw error
+        }else{
+            res.render('map',{
+            address:currentLocation,
+            distance:distance
+            });
+        }
+
+    })
+})
+
 /* HISTORY */
 router.get('/history', (req, res, next) => {
     var email = email;
-    var historyQuery = "SELECT * FROM history;"; // need to add in where clause to specify user
+    var historyQuery = "SELECT * FROM routes;"; // need to add in where clause to specify user
     connection.query(historyQuery, [email], (error, results) => {
         if (error) {
             throw error;
         } else {
-            res.render('history', {
-                runData: 'test',
-            })
+            res.render('history', {results})
         }
     })
 })
