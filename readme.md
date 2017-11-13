@@ -11,6 +11,7 @@
 ###### Google Maps Javascript API
 ###### AJAX/JSON
 ###### Express/Node.js
+###### Isotope JS
 
 ## Node Module Dependencies
 ###### bcrypt-nodejs
@@ -20,7 +21,7 @@
 ###### ejs
 ###### express
 ###### express-session
-######  morgan
+###### morgan
 ###### multer
 ###### mysql
 ###### request
