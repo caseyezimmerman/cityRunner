@@ -78,5 +78,25 @@ router.post('/historyProcess', (req, res, next) => {
     })
 })
 
+// router.post('/mapsProcess/:currentLocation/:distance',(req,res,next)=>{
+//     // var angle = req.body.angle
+//     // var insertQuery = 
+//     var currentLocation = req.params.currentLocation
+//     var distance = req.params.distance
+//     var userid = req.session.uid
+//     var selectQuery = ' SELECT currentLocation,distance FROM routes WHERE userid = ?;';
+//     connection.query(selectQuery, [userid], (error, results) => {
+//         if(error){
+//             throw error
+//         }else{
+//             res.render('onemap',{
+//                 address: currentLocation,
+//                 distance: distance
+//             })
+//     }
+    
+//     })
+// })
+
 
 module.exports = router;
