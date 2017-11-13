@@ -265,9 +265,6 @@ $(document).ready(function(){
 initMap = function (coordLocation = "") {
 	if(runningMaps.length === 0){
 		runningMaps.push(new CircleMap('map', 14, 90, 'instructions'));
-		runningMaps.push(new CircleMap('map2', 14, 45, 'instructions2'));
-		runningMaps.push(new CircleMap('map3', 14, 120, 'instructions3'));
-		runningMaps.push(new CircleMap('map4', 14, 25, 'instructions4'));
 	}
 
 	directionsService = new google.maps.DirectionsService;
@@ -342,10 +339,8 @@ initMap = function (coordLocation = "") {
 initMap2 = function (coordLocation = "") {
 	if(runningMaps.length === 0){
 		runningMaps.push(new CircleMap('map', 14, 90, 'instructions'));
-		runningMaps.push(new CircleMap('map2', 14, 45, 'instructions2'));
-		runningMaps.push(new CircleMap('map3', 14, 120, 'instructions3'));
-		runningMaps.push(new CircleMap('map4', 14, 25, 'instructions4'));
 	}
+	console.log(angle)
 
 	directionsService = new google.maps.DirectionsService;
 	stepDisplay = new google.maps.InfoWindow;
@@ -402,4 +397,3 @@ function reset(){
 	//       stepDisplay.open(map, marker)
 	//     })
 	//   }
-
