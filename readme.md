@@ -25,6 +25,7 @@
 ###### mysql
 ###### request
 ###### serve-favicon
+###### express-session
 
 ## Challenges/Lessons Learned
 
