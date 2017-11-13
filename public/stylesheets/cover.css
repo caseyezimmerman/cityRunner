@@ -1,6 +1,6 @@
 body{
-	
-	background-color:#0276FD;
+	background: url('/images/cityrunner4.png');
+	background-size: cover;
 }
 
 h1{
