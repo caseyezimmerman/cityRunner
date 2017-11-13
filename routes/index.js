@@ -26,14 +26,15 @@ router.get('/home', (req, res, next) => {
 /* LOGOUT */
 router.get('/logout', (req, res) => {
     req.session.destroy();
-    res.redirect('/login');
+    res.redirect('/users/login');
 })
 
 /* ROUTES */
 router.post('/routesProcess', (req, res, next) => {
     var currentLocation = req.body.currentLocation
     var distance = req.body.distance
-    var userid = 2
+    var userid = req.session.uid
+    console.log(req.session.uid)
     console.log("hey chris")
     var insertQuery = 'INSERT INTO routes (currentLocation,distance,userid) VALUES (?,?,?);';
     connection.query(insertQuery, [currentLocation, distance, userid], (error) => {
