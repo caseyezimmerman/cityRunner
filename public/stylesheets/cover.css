@@ -1,5 +1,6 @@
 body{
-	background: url('/images/cityrunner4.png');
+	
+	background: url("/images/cityRunner4.png") no-repeat;
 	background-size: cover;
 }
 
