@@ -10,7 +10,7 @@
 
     
     
-   
+    
     <script type="text/javascript" src="/javascripts/scripts.js"></script>
     <script type="text/javascript" src="/javascripts/timer.js"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/mapstyle.css">
@@ -21,7 +21,16 @@
         <form class="map-form" action="/mapsProcess" method = "post">
             <div class="container">
                 <div class="row">
-                    <div id="timer">0</div>
+                    <div id="chronoExample">
+                        <div class="values">00:00:00</div>
+                        <div>
+                            <button class="startButton">Start</button>
+                            <button class="pauseButton" >Pause</button>
+                            <button class="stopButton">Stop</button>
+                            <button class="resetButton">Reset</button>
+                        </div>
+                    </div>
+
 
                     <div class="col-sm-12 wrapper">
                         <div class="grid">
@@ -41,8 +50,6 @@
                                 <div class="col-xs-7 col-sm-7 col-md-7" id="map"></div>
                                 <div class="col-xs-4 col-sm-4 col-md-4" id="instructions"></div>
                                 <div class="col-sm-12"><button id="mapNumber1" name="angle" class="btn btn-muted">Show map 1</button></div>
-                                <div class="col-sm-6"><button class="btn btn-success" id="start-timer">START</button></div>
-                                <div class="col-sm-6"><button class="btn btn-danger" id="stop-timer">FINISH</button></div>
                             </div> 
                             <div class="mapNumber2 col-sm-12">
                                 <div class="col-xs-7 col-sm-7 col-md-7" id="map2" ></div>
