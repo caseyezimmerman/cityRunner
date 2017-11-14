@@ -6,7 +6,7 @@ body{
 }
 
 #map {
-    height: 70%;
+    height: 400px;
     margin-top: 20px;
     box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
     margin-right: 10px;
@@ -16,7 +16,7 @@ body{
 }
 
 #map2 {
-    height: 70%;
+    height: 400px;
     margin-top: 20px;
     box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
     margin-right: 10px;
@@ -25,7 +25,7 @@ body{
 }
 
 #map3 {
-    height: 70%;
+    height: 400px;
     margin-top: 20px;
     box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
     margin-right: 10px;
@@ -34,7 +34,7 @@ body{
 }
 
 #map4 {
-    height: 70%;
+    height: 400px;
     margin-top: 20px;
     box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
     margin-right: 10px;
@@ -132,7 +132,11 @@ body{
     margin-top: 20px;
 }
 
-#wrapper {
+.wrapper {
+    height: 600px;
+}
+
+.grid {
     height: 600px;
 }
 
