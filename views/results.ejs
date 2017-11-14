@@ -12,9 +12,25 @@
 	<h1>Your Results</h1>
 	<div class="container">
 		<div class="row">
-			<div>
+			 <table id ="myTable">
+            <thead>
+                <th>Total Time</th>
+            </thead>
+                <tbody>
+                <tr>
+                	<td><%=distance%></td>
+                	<td><%=address%></td>
+                </tr>
+                <% results.map((row)=>{ %>
+                    <tr>
+                        <td><% if(row.hours !== 0){ %>Hours: <%= row.hours%><% } %></td>
+                        <td>Minutes: <%= row.minutes%></td>
+                        <td>Seconds: <%= row.seconds%></td>
+                    </tr>
+                <% }) %>
 
-			</div>
+                </tbody>
+            </table>
 		</div>
 	</div>
 

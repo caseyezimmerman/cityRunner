@@ -58,7 +58,7 @@ router.post('/loginProcess', (req, res, next) => {
             throw error
         } else {
             if (results.length == 0) {
-                res.redirect('/register')
+                res.redirect('/users/register')
             } else {
                 var passwordMatch = bcrypt.compareSync(password, results[0].password)
                 if (passwordMatch) {

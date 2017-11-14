@@ -198,6 +198,26 @@ var lngArray3 = []
 
 
 $(document).ready(function(){
+var timeId = 0
+	$('.startButton').click(function(){
+		var date = new Date()
+		date = date.getTime()
+		$.post('http://localhost:3000/start',{date},function(data, status){
+			timeId = data.insertId
+			console.log(data)
+		})
+	})
+
+	$('.stopButton').click(function(){
+		if (timeId == 0){
+			return
+		}
+		var date = new Date()
+		date = date.getTime()
+		$.post('http://localhost:3000/stop',{date:date, timeId:timeId},function(data,status){
+
+		})
+	})
 
 	// $('.run-form').submit(function(event){
 		// $('#hidden').hide()

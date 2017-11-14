@@ -65,17 +65,46 @@ router.get('/history', (req, res, next) => {
 })
 
 router.get('/results',(req,res,next)=>{
-    var resultsUserId = req.session.uid
-    console.log(req.session.uid)
-    var resultsQuery = 'SELECT id, startTime, endTime, ((endTime-startTime)/1000) as totalTime FROM results;';
-    connection.query(resultsQuery,(error,results)=>{
-        console.log(results)
-        console.log(typeof results[0].totalTime)
-        if(error){
-            throw error
-        }else{
-            res.render('results',{results})
+    var distance = decodeURI(req.query.distance);
+    var address = decodeURI(req.query.address);
+    var map = req.query.map;
+    if(map == 1){
+        var angle = 90;
+    }else if(map == 2){
+        var angle = 45;
+    }else if(map == 3){
+        var angle = 120;
+    }else if(map == 4){
+        var angle = 25;
+    }
+    var insertQuery = `INSERT INTO history (angle, address, distance) VALUES (?,?,?);`;
+    connection.query(insertQuery,[angle, address,distance],(insertError, resultsError)=>{
+        if(insertError){
+            throw error;
         }
+        var resultsQuery = 'SELECT startTime, endTime, ((endTime-startTime)/1000) as totalTime FROM results;';
+        connection.query(resultsQuery,(error,results)=>{
+            if(error){
+                throw error
+            }else{
+                console.log(results)
+                var timeResults = [];
+                results.map((result)=>{
+                    let timeDenom = {};
+                    timeDenom.hours = Math.floor((result.totalTime / (60 * 60)) % 24);
+                    timeDenom.minutes = Math.floor((result.totalTime / 60) % 60);
+                    timeDenom.seconds = (Math.floor(((result.totalTime) % 60) * 100)) / 100;
+                    timeResults.push(timeDenom)
+                })
+                
+                console.log(timeResults);
+                res.render('results',{
+                    results: timeResults,
+                    distance: distance,
+                    address: address
+                })
+            }
+        })
     })
 })
 
@@ -97,8 +126,16 @@ router.post('/historyProcess', (req, res, next) => {
 router.post('/start',(req,res,next)=>{
     console.log(req.body)
     var date = req.body.date
-    var insertQuery = 'INSERT INTO results (startTime) VALUES (?);';
-    connection.query(insertQuery,[date],(error,results)=>{
+    var resultsUserId = req.session.uid
+    if(resultsUserId === undefined){
+        // res.redirect('/login');
+        ///////////////////////////////////////////////
+        ////////FOR DEVELOPMENT... AVOID ERROR/////////
+        ///////////////////////////////////////////////
+        resultsUserId = 2
+    }
+    var insertQuery = 'INSERT INTO results (startTime,resultsUserId) VALUES (?,?);';
+    connection.query(insertQuery,[date,resultsUserId],(error,results)=>{
         console.log(results)
         if (error){
             throw error

@@ -140,3 +140,23 @@ body{
     height: 600px;
 }
 
+.startButton{
+    color:black;
+    border:1px solid black;
+    text-decoration:none;
+    background-color:white;
+
+}
+.stopButton{
+    color:black;
+    border:1px solid black;
+    text-decoration:none;
+    background-color:white;
+}
+.pauseButton{
+    color:black;
+    border:1px solid black;
+    text-decoration:none;
+    background-color:white;
+}
+
