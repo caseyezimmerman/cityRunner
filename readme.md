@@ -45,11 +45,14 @@
 ### Waypoints Object Challenge 
 ###### Once we had our waypoints, we were still not getting the path to run through the waypoints because we were not passing in the waypoints' data correctly. We were passing them in as latitude, longitude objects, as we expected, yet we were still finding errors. We discovered that google maps is expecting a location: object, which has the latitude, longitude object.  So in fact, our waypoints array needed to be an object of objects.  
 
-### Frontend Form Submission to Backend
+### Frontend Form Submission to Backend Challenge
 ###### Throughout this project, we constantly had difficulty knowing how and where to pass data from the frontend to the backend. The data we needed to pass was necessary for us to store it in the database for later use when the user clicks on an old route in the history page. We used a $.post request in our frontend scripts file to solve this issue. When the user clicks on the start or stop button, data is posted to our backend index.js file, which is then inserted into our database.
 
-### Sending data from the Backend to the Frontend
-###### To display our results page, which would need to display the amount of time they ran, and the distance, we needed to find a way send this data from the server, since the server was controlling the stopwatch, and also of course had access to the database.  We accomplished this by building a query string that is dependent on the start and stop buttons of our stopwatch. When the click on the stop button, they are taken to a url which has the data we need to save. We then use the server to pull that data out via re.query.
+### Sending data from the Backend to the Frontend Challenge
+###### To display our results page, which would need to display the amount of time they ran, and the distance, we needed to find a way send this data from the server, since the server was controlling the stopwatch, and also of course had access to the database.  We accomplished this by building a query string that is dependent on the stop button of our stopwatch. When the user clicks on the stop button, they are taken to a url which has the data we need to save. We then use the server to pull that data out via req.query.
+
+### Selecting from Routes Table by Id Challenge
+###### After we saved our routes data, we wanted to display the route data for the run the user just did on the results page. The problem was that it was selecting all of the run data associated with that user, instead of only the current run.  To solve this, we attempted to add onto our query string via the stop button, as we had done to send the time data before. But due to javacript's asynchronous nature, the same button was now trying to save data and request it at the same. The result was that id was undefined.  The final solution came from saving the url via the start button instead, which allowed us to separate the steps of sending data and pulling it back out.  
 
 ## Happy Victories
 
@@ -138,7 +141,7 @@ var waypoints = [{
             }
         },
 ```        
-###### Frontend Form Submission to Backend
+###### Frontend Form Submission to Backend Challenge
 ```javascript
 	$('.startButton').click(function(){
 		var date = new Date()
@@ -146,6 +149,7 @@ var waypoints = [{
 		$.post('http://localhost:3000/start',{date},function(data, status){
 			timeId = data.insertId
 			console.log(data)
+		$('#stopButtonLink').attr('href',$('#stopButtonLink').attr('href')+'&id='+data.insertId)
 		})
 	})
 
@@ -155,8 +159,8 @@ var waypoints = [{
 		}
 		var date = new Date()
 		date = date.getTime()
-		$.post('http://localhost:3000/stop',{date:date, timeId:timeId},function(data,status){
-
+		$.post('http://localhost:3000/stop',{date:date, timeId:timeId, address:address, distance:distance},function(data,status){
+			
 		})
 	})
 ```
@@ -167,6 +171,10 @@ var waypoints = [{
         encodedAddress = encodeURI(address);
         resultsRoute = '/results?distance='+encodedDistance+'&address='+encodedAddress;
     %>
+```
+###Selecting from Routes Table by Id Challenge
+```javascript
+$('#stopButtonLink').attr('href',$('#stopButtonLink').attr('href')+'&id='
 ```
 
 ## Updates
