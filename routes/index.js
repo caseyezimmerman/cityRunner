@@ -65,6 +65,9 @@ router.get('/history', (req, res, next) => {
 })
 
 router.get('/results',(req,res,next)=>{
+    var uid = req.query.id
+
+    console.log(req.query)
     var distance = decodeURI(req.query.distance);
     var address = decodeURI(req.query.address);
     var map = req.query.map;
@@ -82,8 +85,9 @@ router.get('/results',(req,res,next)=>{
         if(insertError){
             throw error;
         }
-        var resultsQuery = 'SELECT startTime, endTime, ((endTime-startTime)/1000) as totalTime FROM results;';
-        connection.query(resultsQuery,(error,results)=>{
+        var resultsQuery = 'SELECT startTime, endTime, ((endTime-startTime)/1000) as totalTime FROM results WHERE id = ?;';
+        connection.query(resultsQuery,[uid],(error,results)=>{
+            console.log(results)
             if(error){
                 throw error
             }else{
@@ -93,7 +97,7 @@ router.get('/results',(req,res,next)=>{
                     let timeDenom = {};
                     timeDenom.hours = Math.floor((result.totalTime / (60 * 60)) % 24);
                     timeDenom.minutes = Math.floor((result.totalTime / 60) % 60);
-                    timeDenom.seconds = (Math.floor(((result.totalTime) % 60) * 100)) / 100;
+                    timeDenom.seconds = Math.floor(((result.totalTime) % 60));
                     timeResults.push(timeDenom)
                 })
                 
@@ -136,6 +140,8 @@ router.post('/start',(req,res,next)=>{
     }
     var insertQuery = 'INSERT INTO results (startTime,resultsUserId) VALUES (?,?);';
     connection.query(insertQuery,[date,resultsUserId],(error,results)=>{
+        var importantId = results.insertId
+        console.log(importantId)
         console.log(results)
         if (error){
             throw error
@@ -152,11 +158,12 @@ router.post('/stop',(req,res,next)=>{
     console.log(req.body)
     var date = req.body.date
     var timeId = req.body.timeId
-    var updateQuery = 'UPDATE results SET endTime = ? WHERE id = ?;';
-    connection.query(updateQuery,[date,timeId],(error,results)=>{
+    var updateQuery = 'UPDATE results SET endTime = ?,insertId = ? WHERE id = ?;';
+    connection.query(updateQuery,[date,timeId,timeId],(error,results)=>{
         if(error){
             throw error
         }else{
+            // res.redirect('/results?id='+results.insertId+'&address='+req.body.address+'&distance='+req.body.distance)
             res.json({
                 msg:"stop worked",
                 insertId: results.insertId

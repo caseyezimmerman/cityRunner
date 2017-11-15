@@ -205,6 +205,7 @@ var timeId = 0
 		$.post('http://localhost:3000/start',{date},function(data, status){
 			timeId = data.insertId
 			console.log(data)
+		$('#stopButtonLink').attr('href',$('#stopButtonLink').attr('href')+'&id='+data.insertId)
 		})
 	})
 
@@ -214,8 +215,8 @@ var timeId = 0
 		}
 		var date = new Date()
 		date = date.getTime()
-		$.post('http://localhost:3000/stop',{date:date, timeId:timeId},function(data,status){
-
+		$.post('http://localhost:3000/stop',{date:date, timeId:timeId, address:address, distance:distance},function(data,status){
+			
 		})
 	})
 
